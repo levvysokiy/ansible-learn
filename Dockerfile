@@ -3,6 +3,7 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y openssh-server && \
     apt-get install -y curl && \
+    apt-get install -y sudo && \
     mkdir /var/run/sshd
 
 # Add #VAGRANT-BEGIN and #VAGRANT-END markers to /etc/fstab
