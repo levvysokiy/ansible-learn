@@ -2,7 +2,7 @@
 
   tasks:
     - name: install git
-      apt:
+      ansible.builtin.apt:
         name: git
         state: present
         update_cache: yes

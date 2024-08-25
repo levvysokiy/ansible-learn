@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
       docker.build_dir = "."
       docker.has_ssh  = true
       docker.name = "vm1"
+      docker.ports = ["8080:80"]
     end
     vm1.ssh.insert_key = false
     vm1.ssh.private_key_path = "~/.vagrant.d/insecure_private_key"
@@ -22,6 +23,7 @@ Vagrant.configure("2") do |config|
       docker.build_dir = "."
       docker.has_ssh  = true
       docker.name = "vm2"
+      docker.ports = ["8081:80"]
     end
     vm2.ssh.insert_key = false
     vm2.ssh.private_key_path = "~/.vagrant.d/insecure_private_key"

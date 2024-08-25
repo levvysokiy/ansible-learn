@@ -2,7 +2,7 @@
 
   tasks:
     - name: remove git
-      apt:
+      ansible.builtin.apt:
         name: git
         state: absent
       become: true

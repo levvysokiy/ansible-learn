@@ -24,6 +24,4 @@ RUN useradd -m -s /bin/bash vagrant && \
     chown -R vagrant:vagrant /home/vagrant/.ssh && \
     service ssh start
 
-EXPOSE 22
-
 CMD ["/usr/sbin/sshd", "-D"]
