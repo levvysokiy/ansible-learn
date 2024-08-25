@@ -1,0 +1,42 @@
+- hosts: webservers
+
+  vars:
+    users:
+      - name: arya
+        uid: 1001
+        shell: /bin/bash
+        password: 'arya'
+      - name: sansa
+        uid: 1002
+        shell: /bin/bash
+        password: 'sansa'
+      - name: tirion
+        uid: 1003
+        shell: /bin/bash
+        password: 'tirion'
+
+  tasks:
+    - name: Update apt package cache
+      ansible.builtin.apt:
+        update_cache: yes
+      tags: [config, update-cache]
+      become: true
+
+    - name: install git
+      ansible.builtin.apt:
+        name: git
+        state: present
+        update_cache: yes
+      tags: [config, install-git]
+      become: true
+
+    - name: create users
+      user:
+        name: '{{ item.name }}'
+        uid: '{{ item.uid }}'
+        shell: '{{ item.shell }}'
+        password: '{{ item.password }}'
+        state: present
+      with_items: '{{ users }}'
+      tags: [create-users]
+      become: true
