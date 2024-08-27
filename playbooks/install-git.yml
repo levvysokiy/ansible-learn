@@ -1,4 +1,5 @@
 - hosts: webservers
+  gather_facts: false
 
   tasks:
     - name: install git
