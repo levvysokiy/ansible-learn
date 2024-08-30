@@ -1,0 +1,30 @@
+---
+# tasks file for configure_git
+- name: Include geerlingguy.git
+  include_role:
+    name: geerlingguy.git
+
+- name: create user
+  user:
+    name: '{{ user_name }}'
+    uid: '{{ user_uid }}'
+    shell: '{{ user_shell }}'
+    password: '{{ user_password }}'
+  become: true
+
+- name: copy .gitconfig
+  ansible.builtin.template:
+    src: .gitconfig
+    dest: /home/{{ user_name }}/.gitconfig
+  become: true
+
+- name: configure ssh
+  import_tasks: ssh.yml
+
+- name: Change ownership of a home directory
+  file:
+    path: /home/{{ user_name }}
+    owner: '{{ user_name }}'
+    group: '{{ user_name }}'
+    recurse: true
+  become: true

@@ -1,0 +1,8 @@
+- hosts: all
+  become: true
+  roles:
+    - role: configure_git
+      vars:
+        user_name: jaime
+        user_uid: 1002
+        user_password: jaime

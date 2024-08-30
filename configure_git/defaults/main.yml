@@ -1,0 +1,6 @@
+---
+# defaults file for configure_git
+user_name: 'john_doe'
+user_uid: 1001
+user_shell: /bin/bash
+user_password: 'john_doe'
