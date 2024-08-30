@@ -1,0 +1,10 @@
+roles:
+  - name: geerlingguy.git
+    src: geerlingguy.git
+    version: 3.0.1
+  - name: geerlingguy.nodejs
+    src: geerlingguy.nodejs
+    version: 7.0.0
+  - name: geerlingguy.postgresql
+    src: geerlingguy.postgresql
+    version: 3.5.2
