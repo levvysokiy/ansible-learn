@@ -7,6 +7,11 @@
 <body>
   <h1>Hello World!</h1>
   <h2>THIS IS SERVER {{ ansible_hostname | upper }}</h2> <!-- Эта строка была приведена в верхний регистр с помощью фильтра -->
+  <pre>
+    <code>
+      {{ cowsay_output.stdout }}
+    </code>
+  </pre>
   <small>Deployed at: {{ now(utc=true,fmt='%Y-%m-%d %H:%M:%S') }}</small> <!-- Локализованная дата -->
 </body>
 </html>

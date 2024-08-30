@@ -3,8 +3,21 @@
   vars:
     nginx_port: 80
     root_dir: /usr/share/nginx/html
+    custom_message: 'This is server {{ ansible_hostname }}!'
 
   tasks:
+    - name: install cowsay
+      ansible.builtin.apt:
+        name: cowsay
+        state: latest
+        update_cache: yes
+      become: true
+
+    - name: make cow say server name
+      command: /usr/games/cowsay "{{ custom_message }}"
+      register: cowsay_output
+      become: true
+
     - name: install nginx
       ansible.builtin.apt:
         name: nginx
