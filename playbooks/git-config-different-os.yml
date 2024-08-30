@@ -1,0 +1,60 @@
+- hosts: all
+  vars:
+    user:
+      name: jaime
+      uid: 1001
+      shell: /bin/bash
+      password: 'jaime'
+
+  tasks:
+    - name: install git on ubuntu
+      ansible.builtin.apt:
+        name: git
+        state: present
+        update_cache: yes
+      become: true
+      when: ansible_distribution == "Ubuntu"
+
+    - name: install git on centos
+      ansible.builtin.yum:
+        name: git
+        state: present
+        update_cache: yes
+      become: true
+      when: ansible_distribution == "CentOS"
+
+    - name: create user
+      user:
+        name: '{{ user.name }}'
+        uid: '{{ user.uid }}'
+        shell: '{{ user.shell }}'
+        password: '{{ user.password }}'
+      become: true
+
+    - name: copy .gitconfig
+      ansible.builtin.template:
+        src: ../.gitconfig
+        dest: /home/{{ user.name }}/.gitconfig
+      become: true
+
+    - name: Ensure .ssh directory exists
+      ansible.builtin.file:
+        path: /home/{{ user.name }}/.ssh
+        state: directory
+        mode: '0700'
+      become: true
+
+    - name: copy ssh key
+      ansible.builtin.copy:
+        src: ../files/id_rsa.pub
+        dest: /home/{{ user.name }}/.ssh/authorized_keys
+        mode: '0600'
+      become: true
+
+    - name: Change ownership of a home directory
+      file:
+        path: /home/{{ user.name }}
+        owner: '{{ user.name }}'
+        group: '{{ user.name }}'
+        recurse: true
+      become: true
