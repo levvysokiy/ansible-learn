@@ -1,13 +1,7 @@
-- name: Ensure .ssh directory exists
-  ansible.builtin.file:
-    path: /home/{{ user_name }}/.ssh
-    state: directory
-    mode: '0700'
-  become: true
-
-- name: copy ssh key
-  ansible.builtin.copy:
-    src: id_rsa.pub
-    dest: /home/{{ user_name }}/.ssh/authorized_keys
-    mode: '0600'
+- name: Add SSH key to the authorized_keys file
+  ansible.posix.authorized_key:
+    user: '{{ user_name }}'
+    state: present
+    key: "{{ lookup('file', 'id_rsa.pub') }}"
+    manage_dir: true
   become: true
